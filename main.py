@@ -1,16 +1,21 @@
-# This is a sample Python script.
+while True:
+    n, d = map(int, input().split())
+    if n == 0 and d == 0:
+        break
+    if not (1 <= d or d < n or n <= 10 ** 5):
+        raise RuntimeError("Formato inválido: (1 ≤ D < N ≤ 10^5)")
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    num = input().strip()
+    if len(str(num)) != n:
+        raise RuntimeError("A quantida de dígitos (n), não corresponde ao número inserido: (1 ≤ D < N ≤ 10^5)")
 
+    stack = []
+    for digit in num:
+        while d > 0 and stack and stack[-1] < digit:
+            stack.pop()
+            d -= 1
+        stack.append(digit)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    stack = stack[:-d] if d > 0 else stack
+    result = ''.join(stack)
+    print(result)
